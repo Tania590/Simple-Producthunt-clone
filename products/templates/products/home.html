@@ -1,4 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
-Home Page content
+{% for product in products %}
+<div class="row mt-3">
+  <div class="col-2 mb-3">
+    <img class="img-fluid" src="{{ product.icon.url }}"/>
+  </div>
+  <div class="col-6">
+    <a href="{% url 'detail' product.id %}" target="_blank"><h1>{{ product.title }}</h1></a>
+    <p>{{ product.body|truncatewords:30 }}</p>
+  </div>
+  <div class="col-4">
+    <button class="btn btn-primary btn-lg">Upvote {{ product.votes_total }}</button>
+  </div>
+</div>
+{% endfor %}
 {% endblock %}
