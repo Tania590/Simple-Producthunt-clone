@@ -125,6 +125,7 @@ USE_TZ = True
 STATICFILES_DIRS = [
     BASE_DIR / "producthunt/static",
 ]
+
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
