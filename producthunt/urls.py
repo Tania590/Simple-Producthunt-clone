@@ -22,8 +22,6 @@ import products.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', products.views.home, name='home'),
+    path('accounts/', include('accounts.urls')),
     path('products/', include('products.urls')),
-    path('signup/', products.views.signup, name='signup'),
-    path('login/', products.views.signin, name='login'),
-    path('logout/', products.views.signout, name='logout'),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

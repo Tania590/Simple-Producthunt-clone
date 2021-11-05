@@ -13,15 +13,15 @@
     <img class="img-fluid"src="{{ product.image.url }}"/>
   </div>
   <div class="col-4">
-    <button class="btn btn-primary btn-lg">Upvote {{ product.votes_total }}</button>
+    <button id="upvote" class="btn btn-primary btn-lg"> <i class="fi fi-rr-Caret-up"></i> Upvote {{ product.votes_total }}</button>
   </div>
 </div>
 <div class="row">
   <div class="col-4">
-    <h2>Hunted By {{ request.user.username }}</h2>
+    <h4>Hunted By {{ request.user.username }}</h4>
   </div>
   <div class="col-4 text-end">
-    <h2>{{ product.pub_date_pretty }}</h2>
+    <h4>{{ product.pub_date_pretty }}</h4>
   </div>
 </div>
 <div class="row">
@@ -29,4 +29,11 @@
     <p>{{ product.body }}</p>
   </div>
 </div>
+<!--
+<script>
+  function voteFunction() {
+    document.getElementById('upvote'
+  }
+</script>
+-->
 {% endblock %}
