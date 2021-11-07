@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import DataError
-from .models import Product
+from .models import Product, Vote
 from django.contrib.auth.decorators import login_required
 
 def home(request):
     products = Product.objects.all()
     return render(request,'products/home.html', {'products':products})
 
-@login_required(login_url='/login/')
+@login_required(login_url='/accounts/login/')
 def create_product(request):
     if request.method == "POST":
         product = Product()
@@ -28,3 +28,19 @@ def create_product(request):
 def product_detail(request, pk):
     product = get_object_or_404(Product,pk=pk)
     return render(request,'products/productdetail.html', {'product': product})
+
+@login_required(login_url='/accounts/login/')
+def upvote(request, pk):
+    if request.method == "POST":
+        product = get_object_or_404(Product,pk=pk)
+        votes = Vote.objects.filter(voter__id=request.user.id, product__id=product.id)
+        if votes.exists():
+            return redirect('detail', product.id)
+        else:
+            vote = Vote()
+            vote.product = product
+            vote.voter = request.user
+            vote.save()
+            product.votes_total += 1
+            product.save()
+            return redirect('detail', product.id)
