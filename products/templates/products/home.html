@@ -2,16 +2,20 @@
 {% block content %}
 {% for product in products %}
 <div class="row mt-3">
-  <div class="col-2 mb-3">
+  <div class="col-2 mb-3" onClick="window.location.href='{% url 'detail' product.id %}'" style="cursor:pointer">
     <img class="img-fluid" src="{{ product.icon.url }}"/>
   </div>
-  <div class="col-6">
+  <div class="col-6"onClick="window.location.href='{% url 'detail' product.id %}'" style="cursor:pointer">
     <a href="{% url 'detail' product.id %}" target="_blank"><h1>{{ product.title }}</h1></a>
     <p>{{ product.body|truncatewords:30 }}</p>
   </div>
   <div class="col-4">
-    <button class="btn btn-primary btn-lg">Upvote {{ product.votes_total }}</button>
+    <a href="#" onClick="document.getElementById('voteform{{ product.id }}').submit()"><button class="btn btn-primary btn-lg"><span class="oi oi-caret-top"></span> Upvote {{ product.votes_total }}</button></a>
   </div>
+  <form id="voteform{{ product.id }}" method="POST" action="{% url 'upvote' product.id %}">
+    {% csrf_token %}
+    <input type="hidden"/>
+  </form>
 </div>
 {% endfor %}
 {% endblock %}
